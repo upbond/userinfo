@@ -1,0 +1,39 @@
+version: "3.0"
+
+services:
+  api:
+    container_name: "sample-userinfo"
+    build: ""
+    restart: always
+    tty: true
+    ports:
+      - 3000:3000
+    expose:
+      - 3000
+    depends_on:
+      sample-db:
+        condition: service_healthy
+    networks:
+      - sample-network
+  sample-db:
+    image: mysql:8.3
+    container_name: sample-db
+    tty: true
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: userinfo
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - '3306:3306'
+    expose:
+      - 3306
+    networks:
+      - sample-network
+    healthcheck:
+      test: ['CMD', 'mysqladmin', 'ping', '-h', 'localhost']
+      timeout: 20s
+      retries: 10
+networks:
+  sample-network:
+    driver: bridge

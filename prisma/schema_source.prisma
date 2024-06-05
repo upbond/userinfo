@@ -1,0 +1,23 @@
+// schema.prisma
+
+datasource db {
+  provider = "mysql"
+  url      = env("SOURCE_DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "./generated/source"
+}
+
+model User {
+  id            Int    @id @default(autoincrement())
+  email_address String @default("")
+  name          String @default("")
+  tel           String @default("")
+  image         String @default("")
+  zip_code      String @default("")
+  country       String @default("")
+  occupation    String @default("")
+  @@map("user")
+}

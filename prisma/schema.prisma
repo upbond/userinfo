@@ -1,0 +1,72 @@
+// schema.prisma
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id               String @id @default(uuid())
+  wallet_address   String @default("")
+  email            String @default("")
+  name             String @default("")
+  first_name       String @default("")
+  last_name        String @default("")
+  phone            String @default("")
+  birthdate        String @default("")
+  education_level  String @default("")
+  photo            String @default("")
+  gender           String @default("")
+  marital_status   String @default("")
+  age              String @default("")
+  day_of_birth     String @default("")
+  month_of_birth   String @default("")
+  year_of_birth    String @default("")
+  zip              String @default("")
+  first_name_kana  String @default("")
+  last_name_kana   String @default("")
+  country          String @default("")
+  language         String @default("")
+  identities       Json?
+  connections      String @default("")
+  address          Json?
+  driver_license   Boolean @default(false)
+  transportation   String @default("")
+  office           String @default("")
+  profession       String @default("")
+  income_range     String @default("")
+  household_number String @default("")
+  children_number  String @default("")
+  hobbies          String @default("")
+  housing_loan     Boolean @default(false)
+  insurance_number String @default("")
+  mynumber         String @default("")
+  family_members   Json?
+  custom_data      Json?
+}
+
+model EventLog {
+  id         String   @id @default(uuid())
+  sub        String   @default("")
+  data       Json     @default("{}")
+  created_at DateTime @default(now())
+  event_type String
+  status     String
+  client_id  String
+  retry      Int      @default(0)
+  errors     Json?
+
+  @@map("event-log")
+}
+
+model ClientCredential {
+  id            Int    @id @default(autoincrement())
+  client_id     String
+  client_secret String
+
+  @@map("client-credential")
+}

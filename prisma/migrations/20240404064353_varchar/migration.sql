@@ -1,0 +1,5 @@
+-- AlterTable
+ALTER TABLE `User` MODIFY `address` VARCHAR(1000) NOT NULL DEFAULT '',
+    MODIFY `custom_data` VARCHAR(1000) NOT NULL DEFAULT '',
+    MODIFY `family_members` VARCHAR(1000) NOT NULL DEFAULT '',
+    MODIFY `identities` VARCHAR(1000) NOT NULL DEFAULT '';
